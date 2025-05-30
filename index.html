@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>PodCast Studio</title>
+        <title>Small Podcast</title>
         <style>
             * {
                 margin: 0;
@@ -348,7 +348,7 @@
     <body>
         <div class="container">
             <div class="header">
-                <h1>🎙️ PodCast Studio</h1>
+                <h1>🎙️ Small Podcast</h1>
                 <p>Professional Video & Audio Recording Platform</p>
             </div>
 
@@ -409,8 +409,11 @@
                 </div>
 
                 <div class="preview-container" id="previewContainer">
-                    <div class="preview-box">
+                    <div class="preview-box" style="position: relative;">
                         <div class="preview-label">Camera Preview</div>
+                        <button id="flipCameraBtn" style="position: absolute; top: 10px; right: 10px; z-index: 2; background: #667eea; color: #fff; border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 18px;" title="Flip Camera">
+                            🔄
+                        </button>
                         <video id="cameraPreview" autoplay muted></video>
                     </div>
                     <div class="preview-box">
@@ -464,6 +467,7 @@
                     this.previewContainer = document.getElementById('previewContainer');
                     this.audioVisualizer = document.getElementById('audioVisualizer');
                     this.audioBars = document.getElementById('audioBars');
+                    this.flipCameraBtn = document.getElementById('flipCameraBtn'); // Add this line
                 }
 
                 setupEventListeners() {
@@ -479,6 +483,15 @@
                             this.recordingMode = e.target.dataset.mode;
                             this.updatePreviewVisibility();
                         });
+                    });
+
+                    // Flip camera event
+                    this.flipCameraBtn.addEventListener('click', () => {
+                        if (this.cameraPreview.style.transform === 'scaleX(-1)') {
+                            this.cameraPreview.style.transform = 'scaleX(1)';
+                        } else {
+                            this.cameraPreview.style.transform = 'scaleX(-1)';
+                        }
                     });
                 }
 
@@ -841,6 +854,11 @@
                         this.recordings = this.recordings.filter(r => r.id !== id);
                         this.updateRecordingsList();
                     }
+                }
+
+                flipCamera() {
+                    // Logic to flip the camera (front/rear) goes here
+                    console.log('Flip camera button clicked');
                 }
             }
 
